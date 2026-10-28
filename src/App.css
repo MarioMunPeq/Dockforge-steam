@@ -1,0 +1,94 @@
+/* Layout principal: el visor ocupa toda la ventana */
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0b0e14;
+}
+
+.app__viewer {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Cabecera superpuesta, sin bloquear los controles del visor */
+.app__header {
+  position: absolute;
+  top: 28px;
+  left: 32px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.app__title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.app__subtitle {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: #8f9bad;
+}
+
+/* Pie con ayuda rápida y atribución del modelo */
+.app__footer {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  left: 24px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.75rem;
+  color: #7c8799;
+  pointer-events: none;
+}
+
+.app__credit {
+  text-align: right;
+}
+
+/* Mensaje de carga del visor */
+.viewer {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.viewer:active {
+  cursor: grabbing;
+}
+
+.viewer__loading {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #8f9bad;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .app__header {
+    top: 20px;
+    left: 20px;
+  }
+
+  .app__footer {
+    right: 16px;
+    bottom: 14px;
+    left: 16px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .app__credit {
+    text-align: left;
+  }
+}
