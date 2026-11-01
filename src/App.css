@@ -1,6 +1,5 @@
-/* Layout principal: el visor ocupa toda la ventana */
-.app {
-  position: relative;
+/* Estructura general: barra superior y contenido desplazable */
+.shell {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9,86 +8,152 @@
   background: #0b0e14;
 }
 
-.app__viewer {
+.shell__content {
   flex: 1;
   min-height: 0;
+  overflow-y: auto;
 }
 
-/* Cabecera superpuesta, sin bloquear los controles del visor */
-.app__header {
-  position: absolute;
-  top: 28px;
-  left: 32px;
-  z-index: 10;
-  pointer-events: none;
+/* Página base compartida por Inicio, Inspector y Gemelo */
+.page {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  min-height: 100%;
+  padding: clamp(24px, 4vw, 56px) clamp(20px, 5vw, 72px);
 }
 
-.app__title {
+.page__copy {
+  max-width: 560px;
+}
+
+.page__eyebrow {
+  margin: 0 0 12px;
+  color: #7da5ff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.page__title {
   margin: 0;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: #ffffff;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
   font-weight: 650;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.page__text {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  color: #96a2b5;
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.65;
+}
+
+.page__text code {
+  padding: 2px 6px;
+  border: 1px solid #273247;
+  border-radius: 5px;
+  background: #131a26;
+  color: #bcd0f4;
+  font-size: 0.85em;
+}
+
+.page__note {
+  margin: 24px 0 0;
+  color: #6f7c91;
+  font-size: 0.75rem;
+}
+
+.page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.page__scene {
+  position: relative;
+  height: min(72vh, 720px);
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid rgba(125, 165, 255, 0.16);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(62, 86, 140, 0.22), transparent 65%),
+    #090c12;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+/* Botones de navegación */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: 1px solid #2a3548;
+  border-radius: 9px;
+  color: #dbe4f2;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.button:hover {
+  border-color: #4b6aa3;
+  background: #151c29;
   color: #ffffff;
 }
 
-.app__subtitle {
-  margin: 6px 0 0;
-  font-size: 0.9rem;
-  color: #8f9bad;
+.button--primary {
+  border-color: #7da5ff;
+  background: #7da5ff;
+  color: #081120;
+  font-weight: 600;
 }
 
-/* Pie con ayuda rápida y atribución del modelo */
-.app__footer {
-  position: absolute;
-  right: 24px;
-  bottom: 20px;
-  left: 24px;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  font-size: 0.75rem;
-  color: #7c8799;
-  pointer-events: none;
+.button--primary:hover {
+  border-color: #9bbaff;
+  background: #9bbaff;
+  color: #081120;
 }
 
-.app__credit {
-  text-align: right;
-}
-
-/* Mensaje de carga del visor */
-.viewer {
+/* Contenedor de la escena compartida */
+.studio-scene {
+  position: relative;
   width: 100%;
   height: 100%;
-  cursor: grab;
+  overflow: hidden;
 }
 
-.viewer:active {
-  cursor: grabbing;
-}
-
-.viewer__loading {
+.studio-scene__loading {
   margin: 0;
-  font-size: 0.85rem;
   color: #8f9bad;
+  font-size: 0.85rem;
   white-space: nowrap;
 }
 
-@media (max-width: 640px) {
-  .app__header {
-    top: 20px;
-    left: 20px;
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 28px;
+    padding: 28px 20px 40px;
   }
 
-  .app__footer {
-    right: 16px;
-    bottom: 14px;
-    left: 16px;
-    flex-direction: column;
-    gap: 4px;
+  .page__title {
+    font-size: clamp(2rem, 8vw, 3.2rem);
   }
 
-  .app__credit {
-    text-align: left;
+  .page__scene {
+    height: 46vh;
+    min-height: 320px;
   }
 }

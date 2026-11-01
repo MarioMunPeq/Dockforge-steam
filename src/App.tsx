@@ -1,27 +1,32 @@
-import Viewer from './components/Viewer'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import NavBar from './components/NavBar'
+import Inicio from './sections/Inicio'
+import Inspector from './sections/Inspector'
+import Gemelo from './sections/Gemelo'
+import Taller from './sections/Taller'
 import './App.css'
 
+/**
+ * Estructura general de Dock Forge.
+ * La navegación y las rutas viven aquí; cada sección es independiente.
+ */
 function App() {
   return (
-    <main className="app">
-      {/* Cabecera flotante sobre el visor */}
-      <header className="app__header">
-        <h1 className="app__title">Dock Forge</h1>
-        <p className="app__subtitle">Diseña el dock 3D de tu Steam Controller</p>
-      </header>
+    <BrowserRouter>
+      <div className="shell">
+        <NavBar />
 
-      {/* Visor 3D a pantalla completa */}
-      <div className="app__viewer">
-        <Viewer />
+        <div className="shell__content">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/inspector" element={<Inspector />} />
+            <Route path="/gemelo" element={<Gemelo />} />
+            <Route path="/taller" element={<Taller />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
       </div>
-
-      <footer className="app__footer">
-        <span>Arrastra para rotar · Rueda para hacer zoom</span>
-        <span className="app__credit">
-          Modelo: Valve Corporation · CC BY-NC-SA 4.0
-        </span>
-      </footer>
-    </main>
+    </BrowserRouter>
   )
 }
 
