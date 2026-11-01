@@ -4,6 +4,7 @@ import type { ThreeEvent } from '@react-three/fiber'
 import * as THREE from 'three'
 import Mando3D from '../../components/Mando3D'
 import StudioScene from '../../components/StudioScene'
+import { PALETA } from '../../lib/palette'
 import { zonas, type ZonaMando } from '../../data/zones'
 import CameraFlight, { type VueloCamara } from './CameraFlight'
 import GuideLine, { type PuntoPantalla } from './GuideLine'
@@ -36,7 +37,7 @@ function PuntoCalibracion3D({ punto }: { punto: PuntoCalibracion }) {
       <mesh raycast={() => null}>
         <sphereGeometry args={[2.6, 16, 16]} />
         <meshBasicMaterial
-          color="#ffd166"
+          color={PALETA.accent}
           depthTest={false}
           depthWrite={false}
           toneMapped={false}
@@ -46,7 +47,7 @@ function PuntoCalibracion3D({ punto }: { punto: PuntoCalibracion }) {
       <mesh raycast={() => null}>
         <ringGeometry args={[5, 6.2, 32]} />
         <meshBasicMaterial
-          color="#ffd166"
+          color={PALETA.accent}
           transparent
           opacity={0.65}
           side={THREE.DoubleSide}
@@ -446,10 +447,11 @@ export default function Inspector() {
         <StudioScene
           cameraPosition={CAMARA_INICIAL}
           target={OBJETIVO_INICIAL}
+          grid={false}
           contactShadowScale={480}
         >
           <group onClick={capturarPunto}>
-            <Mando3D color="#cfd7e6" rotacion={ROTACION_MANDO}>
+            <Mando3D color={PALETA.controller} rotacion={ROTACION_MANDO}>
               {!calibrando &&
                 zonas.map((zona) => (
                   <Hotspot
@@ -502,7 +504,7 @@ export default function Inspector() {
         </svg>
 
         <header className="inspector__header">
-          <p className="inspector__eyebrow">Inspector</p>
+          <p className="inspector__eyebrow">02 / Inspector</p>
           <h1 className="inspector__title">Cada control, en su sitio.</h1>
           <p className="inspector__subtitle">
             Haz clic en un punto del mando para ver su ficha.

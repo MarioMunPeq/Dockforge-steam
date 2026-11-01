@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Transición entre secciones · cortina con filo de acento
+   ========================================================================== */
+
+.transicion {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-transition);
+  display: none;
+  background: var(--surface);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.transicion__filo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+}
+
+.transicion__sello {
+  position: absolute;
+  right: clamp(20px, 4vw, 56px);
+  bottom: clamp(20px, 4vw, 56px);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.transicion__numero {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useMemo, type ReactNode } from 'react'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+import { PALETA } from '../lib/palette'
 
 const MANDO_URL = '/models/mando.glb'
 
@@ -99,7 +100,7 @@ function calcularAlturaMinima(
  */
 export default function Mando3D({
   rotacion = [0, 0, 0],
-  color = '#d6dae2',
+  color = PALETA.controller,
   material,
   children,
 }: Mando3DProps) {
@@ -111,15 +112,15 @@ export default function Mando3D({
     [partes, rx, ry, rz],
   )
 
-  // Plástico mate con un pequeño clearcoat para reflejar el entorno.
+  // Plástico mate gris cálido claro, con un clearcoat apenas insinuado.
   useLayoutEffect(() => {
     const mat = new THREE.MeshPhysicalMaterial({
       color,
-      roughness: material?.roughness ?? 0.55,
-      metalness: material?.metalness ?? 0.05,
-      clearcoat: material?.clearcoat ?? 0.25,
-      clearcoatRoughness: material?.clearcoatRoughness ?? 0.65,
-      envMapIntensity: 0.9,
+      roughness: material?.roughness ?? 0.66,
+      metalness: material?.metalness ?? 0.03,
+      clearcoat: material?.clearcoat ?? 0.08,
+      clearcoatRoughness: material?.clearcoatRoughness ?? 0.78,
+      envMapIntensity: 0.65,
     })
 
     modelo.traverse((hijo) => {

@@ -18,6 +18,8 @@
  * El origen está en el centro de la caja del modelo.
  */
 
+import { PALETA } from '../../lib/palette'
+
 /** Índices estándar de los botones. */
 export const BOTONES = {
   A: 0,
@@ -55,7 +57,7 @@ export type ZonaMando = {
   posicion: [number, number, number]
   /** Radio del halo en mm. */
   radio: number
-  /** Color del brillo. Si se omite se usa el azul de la interfaz. */
+  /** Color del brillo. Si se omite se usa el naranja de acento. */
   color?: string
 }
 
@@ -72,7 +74,7 @@ export const ZONAS: ZonaMando[] = [
     botones: [BOTONES.L3],
     posicion: [-23, 33.5, -18],
     radio: 11,
-    color: '#7ee7ff',
+    color: PALETA.accent,
   },
   {
     id: 'stick-der',
@@ -80,7 +82,7 @@ export const ZONAS: ZonaMando[] = [
     botones: [BOTONES.R3],
     posicion: [23, 33.5, -18],
     radio: 11,
-    color: '#7ee7ff',
+    color: PALETA.accent,
   },
 
   // ── Cruceta ───────────────────────────────────────────────────────────────
@@ -233,7 +235,7 @@ export const ZONAS: ZonaMando[] = [
     botones: [],
     posicion: [-31, 25, 14],
     radio: 16,
-    color: '#b794ff',
+    color: PALETA.accent,
   },
   {
     id: 'trackpad-der',
@@ -241,7 +243,7 @@ export const ZONAS: ZonaMando[] = [
     botones: [],
     posicion: [31, 25, 14],
     radio: 16,
-    color: '#b794ff',
+    color: PALETA.accent,
   },
 ]
 

@@ -190,7 +190,7 @@ export default function Taller() {
         />
 
         <header className="taller__header">
-          <p className="taller__eyebrow">Configurador</p>
+          <p className="taller__eyebrow">04 / Configurador</p>
           <h1 className="taller__title">Taller</h1>
           <p className="taller__subtitle">
             Base, hueco del mando, puck y acabado en milímetros reales.

@@ -1,5 +1,9 @@
+import { useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import CargadorApp from './components/CargadorApp'
+import CursorPersonalizado from './components/CursorPersonalizado'
 import NavBar from './components/NavBar'
+import TransicionSeccion from './components/TransicionSeccion'
 import Inicio from './sections/Inicio'
 import Inspector from './sections/Inspector'
 import Gemelo from './sections/Gemelo'
@@ -11,9 +15,14 @@ import './App.css'
  * La navegación y las rutas viven aquí; cada sección es independiente.
  */
 function App() {
+  const [listo, setListo] = useState(false)
+
   return (
     <BrowserRouter>
-      <div className="shell">
+      <div
+        className={`shell${listo ? ' is-listo' : ''}`}
+        inert={!listo}
+      >
         <NavBar />
 
         <div className="shell__content">
@@ -26,6 +35,10 @@ function App() {
           </Routes>
         </div>
       </div>
+
+      <CargadorApp onDone={() => setListo(true)} />
+      <CursorPersonalizado />
+      <TransicionSeccion />
     </BrowserRouter>
   )
 }

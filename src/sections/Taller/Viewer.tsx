@@ -18,6 +18,7 @@ import {
 } from './layout'
 import type { MandoSource } from './mandoSource'
 import type { PuckSource } from './puckSource'
+import { PALETA } from '../../lib/palette'
 
 type ViewerProps = {
   params: TallerParams
@@ -113,7 +114,7 @@ function Medidas({
           [-params.ancho / 2, y, zLinea],
           [params.ancho / 2, y, zLinea],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Line
@@ -121,7 +122,7 @@ function Medidas({
           [-params.ancho / 2, y, zLinea - 3],
           [-params.ancho / 2, y, zLinea + 3],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Line
@@ -129,7 +130,7 @@ function Medidas({
           [params.ancho / 2, y, zLinea - 3],
           [params.ancho / 2, y, zLinea + 3],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Html
@@ -146,7 +147,7 @@ function Medidas({
           [xLinea, y, -params.fondo / 2],
           [xLinea, y, params.fondo / 2],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Line
@@ -154,7 +155,7 @@ function Medidas({
           [xLinea - 3, y, -params.fondo / 2],
           [xLinea + 3, y, -params.fondo / 2],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Line
@@ -162,7 +163,7 @@ function Medidas({
           [xLinea - 3, y, params.fondo / 2],
           [xLinea + 3, y, params.fondo / 2],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Html
@@ -179,7 +180,7 @@ function Medidas({
           [xEsquina, 0, zEsquina],
           [xEsquina, altoTotal, zEsquina],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Line
@@ -187,7 +188,7 @@ function Medidas({
           [xEsquina - 3, 0, zEsquina],
           [xEsquina + 3, 0, zEsquina],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Line
@@ -195,7 +196,7 @@ function Medidas({
           [xEsquina - 3, altoTotal, zEsquina],
           [xEsquina + 3, altoTotal, zEsquina],
         ]}
-        color="#8fb4ff"
+        color={PALETA.muted}
         lineWidth={1}
       />
       <Html
@@ -258,12 +259,12 @@ export default function Viewer({
             receiveShadow
           >
             <meshPhysicalMaterial
-              color="#d6dae2"
-              roughness={0.55}
-              metalness={0.05}
-              clearcoat={0.25}
-              clearcoatRoughness={0.65}
-              envMapIntensity={0.9}
+              color={PALETA.controller}
+              roughness={0.66}
+              metalness={0.02}
+              clearcoat={0.08}
+              clearcoatRoughness={0.78}
+              envMapIntensity={0.65}
               clippingPlanes={recorte}
               clipShadows={modo === 'seccion'}
               side={modo === 'seccion' ? THREE.DoubleSide : THREE.FrontSide}
@@ -283,11 +284,11 @@ export default function Viewer({
             receiveShadow
           >
             <meshPhysicalMaterial
-              color="#a8794d"
-              roughness={0.42}
-              metalness={0.3}
-              clearcoat={0.3}
-              clearcoatRoughness={0.5}
+              color={PALETA.puck}
+              roughness={0.7}
+              metalness={0.08}
+              clearcoat={0.08}
+              clearcoatRoughness={0.8}
               clippingPlanes={recorte}
               clipShadows={modo === 'seccion'}
               side={modo === 'seccion' ? THREE.DoubleSide : THREE.FrontSide}
@@ -305,7 +306,7 @@ export default function Viewer({
             >
               <cylinderGeometry args={[PATA_RADIO - 0.3, PATA_RADIO - 0.3, 1.6, 24]} />
               <meshStandardMaterial
-                color="#0d1017"
+                color={PALETA.accentInk}
                 roughness={0.95}
                 metalness={0}
                 clippingPlanes={recorte}
@@ -327,9 +328,9 @@ export default function Viewer({
             receiveShadow
           >
             <meshStandardMaterial
-              color="#8fb4ff"
-              roughness={0.32}
-              metalness={0.45}
+              color={PALETA.muted}
+              roughness={0.62}
+              metalness={0.05}
               clippingPlanes={recorte}
               side={modo === 'seccion' ? THREE.DoubleSide : THREE.FrontSide}
             />

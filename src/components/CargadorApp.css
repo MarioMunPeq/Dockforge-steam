@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Pantalla de carga · cortina técnica sobre el papel oscuro
+   ========================================================================== */
+
+.cargador {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(20px, 4vw, 56px);
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  will-change: transform;
+}
+
+.cargador__contenido {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+}
+
+.cargador__cabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: var(--rule) solid var(--line);
+}
+
+.cargador__firma,
+.cargador__meta {
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cargador__firma {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cargador__punto {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+
+.cargador__meta {
+  color: var(--muted);
+}
+
+.cargador__centro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(24px, 6vh, 64px) 0;
+}
+
+.cargador__indice {
+  padding-bottom: 0.9rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+}
+
+.cargador__marca {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 13vw, 12rem);
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.cargador__marca-linea {
+  display: block;
+  overflow: hidden;
+}
+
+.cargador__marca-linea > span {
+  display: block;
+  will-change: transform;
+}
+
+.cargador__pie {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: var(--rule) solid var(--line);
+}
+
+.cargador__estado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.cargador__senal {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  animation: cargador-senal 1.4s var(--ease) infinite;
+}
+
+.cargador__archivo {
+  color: var(--line-strong);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.cargador__cifra {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.4vw, 4.2rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.8;
+}
+
+.cargador__unidad {
+  color: var(--muted);
+  font-size: 0.3em;
+  letter-spacing: 0.04em;
+}
+
+.cargador__barra {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--line);
+}
+
+.cargador__barra > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@keyframes cargador-senal {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 720px) {
+  .cargador__cabecera {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .cargador__centro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 40px 0;
+  }
+
+  .cargador__indice {
+    order: 2;
+    padding-bottom: 0;
+  }
+
+  .cargador__marca {
+    font-size: clamp(3.2rem, 21vw, 7rem);
+  }
+
+  .cargador__pie {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cargador__cifra {
+    order: -1;
+    font-size: 2.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cargador__senal {
+    animation: none;
+  }
+}

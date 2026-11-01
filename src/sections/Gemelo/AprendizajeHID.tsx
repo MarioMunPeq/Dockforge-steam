@@ -123,6 +123,8 @@ export default function AprendizajeHID({
   useEffect(() => {
     if (dispositivo || !activo) return
 
+    // El aprendizaje depende de que el dispositivo HID siga conectado.
+    // oxlint-disable-next-line react/set-state-in-effect
     setActivo(false)
     setFase('inactivo')
     setMensaje('Se desconectó el dispositivo; el aprendizaje se ha detenido.')

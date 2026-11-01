@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Cursor de precisión · punto + anillo técnico
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  html.cursor-personalizado,
+  html.cursor-personalizado * {
+    cursor: none !important;
+  }
+}
+
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cursor);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease);
+}
+
+.cursor.is-visible {
+  opacity: 1;
+}
+
+.cursor__punto,
+.cursor__anillo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor__punto {
+  width: 5px;
+  height: 5px;
+  background: var(--ink);
+  transition: background-color 0.16s var(--ease);
+}
+
+.cursor__anillo {
+  width: 24px;
+  height: 24px;
+  border: var(--rule) solid var(--line-strong);
+  border-radius: 1px;
+  transition:
+    border-color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+
+.cursor.is-activo .cursor__anillo {
+  border-color: var(--accent);
+  background: var(--ink-04);
+}
+
+.cursor.is-activo .cursor__punto,
+.cursor.is-pulsando .cursor__punto {
+  background: var(--accent);
+}
+
+.cursor.is-pulsando .cursor__anillo {
+  border-color: var(--accent);
+}
+
+/* El elemento raíz se oculta con el puntero fuera de la ventana. */
+.cursor:not(.is-visible) .cursor__punto,
+.cursor:not(.is-visible) .cursor__anillo {
+  opacity: 0;
+}

@@ -1,11 +1,42 @@
-/* Estructura general: barra superior y contenido desplazable */
+/* ==========================================================================
+   Estructura de la aplicación
+   ========================================================================== */
+
 .shell {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100dvh;
   overflow: hidden;
-  background: #0b0e14;
+  background: var(--paper);
+  opacity: 0;
+  transition: opacity 0.7s var(--ease);
+}
+
+/* La entrada se dispara cuando el modelo termina de cargar. */
+.shell.is-listo {
+  opacity: 1;
+}
+
+.shell.is-listo .nav {
+  animation: nav-entrada 0.7s var(--ease) both;
+}
+
+.shell.is-listo .shell__content {
+  animation: contenido-entrada 0.75s 0.05s var(--ease) both;
+}
+
+@keyframes nav-entrada {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes contenido-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 
 .shell__content {
@@ -14,146 +45,81 @@
   overflow-y: auto;
 }
 
-/* Página base compartida por Inicio, Inspector y Gemelo */
-.page {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
-  align-items: center;
-  gap: clamp(28px, 5vw, 72px);
-  min-height: 100%;
-  padding: clamp(24px, 4vw, 56px) clamp(20px, 5vw, 72px);
-}
+/* ==========================================================================
+   Botones
+   ========================================================================== */
 
-.page__copy {
-  max-width: 560px;
-}
-
-.page__eyebrow {
-  margin: 0 0 12px;
-  color: #7da5ff;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.page__title {
-  margin: 0;
-  color: #ffffff;
-  font-size: clamp(2.4rem, 5vw, 4.4rem);
-  font-weight: 650;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
-}
-
-.page__text {
-  max-width: 46ch;
-  margin: 20px 0 0;
-  color: #96a2b5;
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-  line-height: 1.65;
-}
-
-.page__text code {
-  padding: 2px 6px;
-  border: 1px solid #273247;
-  border-radius: 5px;
-  background: #131a26;
-  color: #bcd0f4;
-  font-size: 0.85em;
-}
-
-.page__note {
-  margin: 24px 0 0;
-  color: #6f7c91;
-  font-size: 0.75rem;
-}
-
-.page__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 30px;
-}
-
-.page__scene {
-  position: relative;
-  height: min(72vh, 720px);
-  min-height: 360px;
-  overflow: hidden;
-  border: 1px solid rgba(125, 165, 255, 0.16);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 50% 45%, rgba(62, 86, 140, 0.22), transparent 65%),
-    #090c12;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-}
-
-/* Botones de navegación */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 18px;
-  border: 1px solid #2a3548;
-  border-radius: 9px;
-  color: #dbe4f2;
-  font-size: 0.88rem;
+  min-height: 46px;
+  padding: 0 var(--space-5);
+  border: var(--rule) solid var(--ink);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1;
   text-decoration: none;
+  text-transform: uppercase;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
 }
 
 .button:hover {
-  border-color: #4b6aa3;
-  background: #151c29;
-  color: #ffffff;
+  border-color: var(--accent);
+  color: var(--ink);
 }
 
 .button--primary {
-  border-color: #7da5ff;
-  background: #7da5ff;
-  color: #081120;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
   font-weight: 600;
 }
 
 .button--primary:hover {
-  border-color: #9bbaff;
-  background: #9bbaff;
-  color: #081120;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
 }
 
-/* Contenedor de la escena compartida */
+.button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.button--primary:focus-visible {
+  outline-color: var(--accent-ink);
+}
+
+/* ==========================================================================
+   Escena 3D compartida
+   ========================================================================== */
+
 .studio-scene {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: var(--paper);
 }
 
 .studio-scene__loading {
-  margin: 0;
-  color: #8f9bad;
-  font-size: 0.85rem;
+  padding: var(--space-2) var(--space-3);
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   white-space: nowrap;
-}
-
-@media (max-width: 900px) {
-  .page {
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 28px;
-    padding: 28px 20px 40px;
-  }
-
-  .page__title {
-    font-size: clamp(2rem, 8vw, 3.2rem);
-  }
-
-  .page__scene {
-    height: 46vh;
-    min-height: 320px;
-  }
 }

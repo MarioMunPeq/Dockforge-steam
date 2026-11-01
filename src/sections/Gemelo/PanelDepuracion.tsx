@@ -52,7 +52,7 @@ export default function PanelDepuracion({
     <aside className="gemelo-panel">
       <header className="gemelo-panel__header">
         <div>
-          <p className="gemelo-panel__eyebrow">Depuración</p>
+          <p className="gemelo-panel__eyebrow">03 / Depuración</p>
           <h2 className="gemelo-panel__title">Entrada del mando</h2>
         </div>
 

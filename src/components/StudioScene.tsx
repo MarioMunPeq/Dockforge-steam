@@ -8,6 +8,7 @@ import {
   Lightformer,
   OrbitControls,
 } from '@react-three/drei'
+import { LUCES, PALETA } from '../lib/palette'
 
 type StudioSceneProps = {
   children: ReactNode
@@ -42,13 +43,14 @@ export default function StudioScene({
           far: 5000,
         }}
       >
-        <color attach="background" args={['#0b0e14']} />
+        <color attach="background" args={[PALETA.bg]} />
 
-        {/* Luces directas: clave, relleno y contraluz */}
-        <ambientLight intensity={0.35} />
+        {/* Luz de estudio: clave cálida, relleno amplio y contorno trasero */}
+        <ambientLight intensity={0.32} />
         <directionalLight
-          position={[300, 450, 350]}
-          intensity={2.2}
+          position={[300, 450, 320]}
+          intensity={2}
+          color={LUCES.clave}
           castShadow
           shadow-mapSize={[2048, 2048]}
           shadow-camera-left={-320}
@@ -60,28 +62,28 @@ export default function StudioScene({
           shadow-bias={-0.0005}
         />
         <directionalLight
-          position={[-350, 180, -250]}
-          intensity={1}
-          color="#cfe0ff"
+          position={[-350, 180, -140]}
+          intensity={0.55}
+          color={LUCES.relleno}
         />
         <directionalLight
-          position={[0, 220, -420]}
-          intensity={0.8}
-          color="#9fb8ff"
+          position={[0, 240, -460]}
+          intensity={1.5}
+          color={LUCES.contorno}
         />
 
         {/* Entorno de estudio generado con lightformers, sin HDR externo */}
-        <Environment resolution={256} environmentIntensity={0.6}>
+        <Environment resolution={256} environmentIntensity={0.24}>
           <Lightformer
             form="rect"
-            intensity={4}
+            intensity={3}
             position={[0, 4, -6]}
             scale={[10, 6, 1]}
             target={[0, 0, 0]}
           />
           <Lightformer
             form="rect"
-            intensity={2}
+            intensity={1.4}
             position={[-5, 2, 2]}
             scale={[3, 5, 1]}
             rotation-y={Math.PI / 2}
@@ -89,7 +91,7 @@ export default function StudioScene({
           />
           <Lightformer
             form="rect"
-            intensity={1.5}
+            intensity={1}
             position={[5, 1, 2]}
             scale={[3, 5, 1]}
             rotation-y={-Math.PI / 2}
@@ -97,7 +99,7 @@ export default function StudioScene({
           />
           <Lightformer
             form="ring"
-            intensity={2.5}
+            intensity={1.6}
             position={[0, 6, 1]}
             scale={4}
             rotation-x={Math.PI / 2}
@@ -114,18 +116,18 @@ export default function StudioScene({
               receiveShadow
             >
               <planeGeometry args={[1600, 1600]} />
-              <shadowMaterial transparent opacity={0.3} />
+              <shadowMaterial transparent opacity={0.32} />
             </mesh>
 
             <Grid
               position={[0, -0.15, 0]}
               args={[1200, 1200]}
               cellSize={10}
-              cellThickness={0.6}
-              cellColor="#263043"
+              cellThickness={0.5}
+              cellColor={PALETA.line}
               sectionSize={50}
-              sectionThickness={1.2}
-              sectionColor="#3d4b66"
+              sectionThickness={1}
+              sectionColor={PALETA.lineStrong}
               fadeDistance={900}
               fadeStrength={1.5}
               infiniteGrid
@@ -138,16 +140,17 @@ export default function StudioScene({
           position={[0, contactShadowY, 0]}
           opacity={0.55}
           scale={contactShadowScale}
-          blur={2.6}
-          far={250}
+          blur={3}
+          far={320}
           resolution={512}
           smooth
+          color={PALETA.sombra}
         />
 
         <Suspense
           fallback={
             <Html center>
-              <p className="studio-scene__loading">Cargando mando…</p>
+              <p className="studio-scene__loading">Cargando mando</p>
             </Html>
           }
         >

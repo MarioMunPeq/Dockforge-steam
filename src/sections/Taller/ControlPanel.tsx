@@ -207,6 +207,7 @@ export default function ControlPanel({
     <aside className="panel" aria-busy={calculating}>
       <div className="panel__header">
         <div>
+          <p className="panel__eyebrow">Diseño paramétrico</p>
           <h2 className="panel__title">Parámetros</h2>
           <p className="panel__subtitle">
             Diseño {nombrePreset(values.preset).toLowerCase()}
@@ -219,7 +220,10 @@ export default function ControlPanel({
 
       <div className="panel__controls">
         <section className="panel__group">
-          <h3 className="panel__groupTitle">Presets de diseño</h3>
+          <h3 className="panel__groupTitle">
+            <span className="panel__groupIndex">01</span>
+            Presets de diseño
+          </h3>
           <div className="panel__presets">
             {PRESETS.map((preset) => (
               <button
@@ -239,21 +243,30 @@ export default function ControlPanel({
         </section>
 
         <section className="panel__group">
-          <h3 className="panel__groupTitle">Base</h3>
+          <h3 className="panel__groupTitle">
+            <span className="panel__groupIndex">02</span>
+            Base
+          </h3>
           <div className="panel__groupControls">
             {BASE_CONTROLS.map(slider)}
           </div>
         </section>
 
         <section className="panel__group">
-          <h3 className="panel__groupTitle">Hueco del mando</h3>
+          <h3 className="panel__groupTitle">
+            <span className="panel__groupIndex">03</span>
+            Hueco del mando
+          </h3>
           <div className="panel__groupControls">
             {HUECO_CONTROLS.map(slider)}
           </div>
         </section>
 
         <section className="panel__group">
-          <h3 className="panel__groupTitle">Hueco del puck</h3>
+          <h3 className="panel__groupTitle">
+            <span className="panel__groupIndex">04</span>
+            Hueco del puck
+          </h3>
 
           {toggle(
             'puckActivo',
@@ -292,7 +305,10 @@ export default function ControlPanel({
         </section>
 
         <section className="panel__group">
-          <h3 className="panel__groupTitle">Acabado</h3>
+          <h3 className="panel__groupTitle">
+            <span className="panel__groupIndex">05</span>
+            Acabado
+          </h3>
 
           {toggle(
             'patas',
@@ -312,7 +328,10 @@ export default function ControlPanel({
         </section>
 
         <section className="panel__group">
-          <h3 className="panel__groupTitle">Texto extruido</h3>
+          <h3 className="panel__groupTitle">
+            <span className="panel__groupIndex">06</span>
+            Texto extruido
+          </h3>
           <div className="panel__groupControls">
             <label className="panel__control">
               <span className="panel__row">

@@ -122,7 +122,13 @@ export default function SidePanel({
     <aside className="inspector-panel">
       <header className="inspector-panel__header">
         <div>
-          <p className="inspector-panel__eyebrow">Inspector</p>
+          <p className="inspector-panel__eyebrow">
+            {calibrando
+              ? '02 / Calibración'
+              : seleccionada
+                ? '02 / Ficha'
+                : '02 / Índice'}
+          </p>
           <h2 className="inspector-panel__title">{titulo}</h2>
           <p className="inspector-panel__subtitle">
             {calibrando

@@ -1,6 +1,7 @@
 import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 import type { BufferGeometry } from 'three'
+import { PALETA } from '../../lib/palette'
 import type { DockParams, VistaTaller } from './dockParams'
 
 type DockProps = {
@@ -33,11 +34,11 @@ export default function Dock({
 
   const material = (
     <meshPhysicalMaterial
-      color={modo === 'medidas' ? '#465a78' : '#36435a'}
-      roughness={0.42}
-      metalness={0.28}
-      clearcoat={0.18}
-      clearcoatRoughness={0.7}
+      color={modo === 'medidas' ? PALETA.graphiteLight : PALETA.graphite}
+      roughness={0.66}
+      metalness={0.02}
+      clearcoat={0.05}
+      clearcoatRoughness={0.85}
       transparent={false}
       opacity={1}
       depthWrite

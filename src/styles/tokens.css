@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Dock Forge · tokens de diseño
+   Plano técnico nocturno: carbón, tinta cálida, líneas de 1 px y un acento.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Color ------------------------------------------------------------------ */
+  --bg: #0f0f0e;
+  --surface: #171715;
+  --surface-2: #1d1d1a;
+  --line: #2c2b28;
+  --line-strong: #4a4843;
+  --text: #ece9e1;
+  --muted: #a19d91;
+  --accent: #ff5a1f;
+  /* Tinta para texto sobre superficies naranjas (contraste AA). */
+  --accent-ink: #14100e;
+
+  /* Materiales de la escena 3D */
+  --controller: #cdc7b8;
+  --graphite: #2a2927;
+
+  /* Alias heredados: --paper es el fondo, --ink el texto. */
+  --paper: var(--bg);
+  --paper-light: var(--surface);
+  --ink: var(--text);
+
+  --ink-04: rgba(236, 233, 225, 0.04);
+  --ink-08: rgba(236, 233, 225, 0.08);
+  --ink-16: rgba(236, 233, 225, 0.16);
+  --ink-56: rgba(236, 233, 225, 0.56);
+  --paper-70: rgba(15, 15, 14, 0.7);
+  --paper-92: rgba(15, 15, 14, 0.92);
+
+  /* Tipografía ------------------------------------------------------------- */
+  --font-display: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  --font-body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas,
+    monospace;
+
+  --text-2xs: 0.625rem;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: clamp(1.25rem, 1.6vw, 1.5rem);
+  --text-xl: clamp(1.75rem, 2.6vw, 2.5rem);
+  --text-2xl: clamp(2.25rem, 4vw, 4rem);
+  --text-3xl: clamp(3rem, 6vw, 6.5rem);
+  --text-hero: clamp(3.25rem, 8.6vw, 9.5rem);
+
+  --tracking-label: 0.16em;
+  --tracking-tight: -0.04em;
+  --tracking-hero: -0.055em;
+
+  /* Rejilla y espacio ------------------------------------------------------ */
+  --grid-columns: 12;
+  --grid-gap: 24px;
+  --page-max: 1440px;
+  --page-pad-x: clamp(20px, 4vw, 64px);
+  --page-pad-y: clamp(24px, 4vw, 56px);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  --nav-height: 68px;
+
+  /* Forma y movimiento ----------------------------------------------------- */
+  --radius: 2px;
+  --rule: 1px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur: 180ms;
+
+  --z-stage: 1;
+  --z-chrome: 10;
+  --z-nav: 100;
+  --z-dialog: 200;
+  --z-transition: 400;
+  --z-loader: 500;
+  --z-cursor: 600;
+}

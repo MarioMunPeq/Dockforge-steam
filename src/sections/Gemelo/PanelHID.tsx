@@ -37,6 +37,8 @@ export default function PanelHID({
 
   useEffect(() => {
     if (!activo || hid.informes.length > 0) {
+      // El temporizador depende de los informes del dispositivo externo.
+      // oxlint-disable-next-line react/set-state-in-effect
       setSinInformes(false)
       return
     }
@@ -63,7 +65,7 @@ export default function PanelHID({
     <aside className="gemelo-panel">
       <header className="gemelo-panel__header">
         <div>
-          <p className="gemelo-panel__eyebrow">Depuración</p>
+          <p className="gemelo-panel__eyebrow">03 / WebHID</p>
           <h2 className="gemelo-panel__title">Entrada HID</h2>
         </div>
 

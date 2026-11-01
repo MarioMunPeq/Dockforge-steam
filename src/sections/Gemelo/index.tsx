@@ -102,7 +102,7 @@ export default function Gemelo() {
     <section className="gemelo">
       <div className="gemelo__stage">
         <header className="gemelo__header">
-          <p className="gemelo__eyebrow">Gemelo digital</p>
+          <p className="gemelo__eyebrow">03 / Gemelo digital</p>
           <h1 className="gemelo__title">Mando en vivo</h1>
           <p className="gemelo__subtitle">
             Pulsa cualquier control y mira cómo responde el modelo.

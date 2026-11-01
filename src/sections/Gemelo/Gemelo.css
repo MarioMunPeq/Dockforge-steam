@@ -1,10 +1,13 @@
-/* Gemelo digital: visor 3D + panel de depuración del mando */
+/* ==========================================================================
+   Gemelo · visor claro y panel de depuración separado por una línea
+   ========================================================================== */
+
 .gemelo {
   display: flex;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #0b0e14;
+  background: var(--paper);
 }
 
 .gemelo__stage {
@@ -12,6 +15,7 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
+  background: var(--paper);
 }
 
 .gemelo__viewer {
@@ -19,112 +23,118 @@
   inset: 0;
 }
 
-/* Cabecera superpuesta, sin bloquear el ratón del visor */
+/* ── Cabecera del visor ──────────────────────────────────────────────────── */
+
 .gemelo__header {
   position: absolute;
-  top: 24px;
-  left: 30px;
+  top: clamp(20px, 3.4vw, 34px);
+  left: clamp(20px, 3.4vw, 34px);
   z-index: 10;
-  max-width: min(480px, calc(100% - 60px));
+  max-width: min(520px, calc(100% - 60px));
   pointer-events: none;
 }
 
 .gemelo__eyebrow {
-  margin: 0 0 6px;
-  color: #7da5ff;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .gemelo__title {
-  margin: 0;
-  color: #ffffff;
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  font-weight: 650;
-  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.9rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  text-transform: uppercase;
 }
 
 .gemelo__subtitle {
-  margin: 5px 0 0;
-  color: #8f9bad;
-  font-size: 0.8rem;
+  max-width: 38ch;
+  margin-top: 10px;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  line-height: 1.55;
 }
 
 .gemelo__status {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
-  margin-top: 12px;
-  border: 1px solid #263247;
-  border-radius: 999px;
-  background: rgba(12, 18, 28, 0.72);
-  color: #91a0b6;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  padding: 7px 10px;
+  margin-top: 14px;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .gemelo__status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #67748a;
+  width: 5px;
+  height: 5px;
+  background: var(--line);
 }
 
 .gemelo__status.is-on {
-  border-color: rgba(85, 214, 152, 0.28);
-  color: #93e6bd;
+  border-color: var(--accent);
+  color: var(--ink);
 }
 
 .gemelo__status.is-on .gemelo__status-dot {
-  background: #5be0a0;
-  animation: gemelo-pulso 1.9s ease-out infinite;
+  background: var(--accent);
+  animation: gemelo-pulso 1.9s var(--ease) infinite;
 }
 
 .gemelo__status.is-warn {
-  border-color: rgba(224, 176, 94, 0.3);
-  color: #e0bf84;
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
 .gemelo__status.is-warn .gemelo__status-dot {
-  background: #e0b05e;
+  background: transparent;
+  border: var(--rule) solid var(--accent);
 }
 
 @keyframes gemelo-pulso {
-  0% {
-    box-shadow: 0 0 0 0 rgba(91, 224, 160, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 6px rgba(91, 224, 160, 0);
-  }
+  0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(91, 224, 160, 0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
   }
 }
 
-/* Mensaje sobre la escena cuando no hay mando */
+/* ── Mensaje sobre la escena cuando no hay mando ─────────────────────────── */
+
 .gemelo__empty {
   position: absolute;
-  bottom: 60px;
+  bottom: 62px;
   left: 50%;
   z-index: 8;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   width: min(470px, calc(100% - 48px));
-  padding: 16px 18px;
-  border: 1px solid rgba(125, 165, 255, 0.22);
-  border-radius: 14px;
-  background: rgba(13, 19, 30, 0.86);
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.42);
+  padding: 18px 20px;
+  border: var(--rule) solid var(--line);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--paper);
   transform: translateX(-50%);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
   pointer-events: none;
 }
 
@@ -133,39 +143,44 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border: 1px solid rgba(125, 165, 255, 0.24);
-  border-radius: 50%;
-  background: rgba(125, 165, 255, 0.09);
-  color: #9ebcf0;
+  width: 48px;
+  height: 48px;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
 }
 
 .gemelo__empty-title {
   display: block;
-  color: #eaf0fa;
-  font-size: 0.86rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
   font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  text-transform: uppercase;
 }
 
 .gemelo__empty-text {
-  margin: 4px 0 0;
-  color: #8492a6;
-  font-size: 0.74rem;
-  line-height: 1.5;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.55;
 }
 
 .gemelo__footer {
   position: absolute;
-  right: 24px;
-  bottom: 18px;
-  left: 24px;
+  right: clamp(20px, 3.4vw, 34px);
+  bottom: 16px;
+  left: clamp(20px, 3.4vw, 34px);
   z-index: 9;
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  color: #6f7c91;
-  font-size: 0.7rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.04em;
   pointer-events: none;
 }
 
@@ -173,16 +188,18 @@
   text-align: right;
 }
 
-/* ── Panel lateral ───────────────────────────────────────────────────────── */
+/* ==========================================================================
+   Panel lateral · sin superficie propia
+   ========================================================================== */
 
 .gemelo-panel {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  width: 400px;
+  width: 410px;
   height: 100%;
-  background: #0e1420;
-  border-left: 1px solid #1f2a3c;
+  border-left: var(--rule) solid var(--line);
+  background: transparent;
 }
 
 .gemelo-panel__header {
@@ -191,104 +208,97 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 22px 22px 16px;
-  border-bottom: 1px solid #1c2534;
+  padding: 24px 24px 16px;
+  border-bottom: var(--rule) solid var(--line);
 }
 
 .gemelo-panel__eyebrow {
-  margin: 0 0 4px;
-  color: #62738c;
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .gemelo-panel__title {
-  margin: 0;
-  color: #eaf0fa;
-  font-size: 1rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .gemelo-panel__status {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 5px 9px;
-  border: 1px solid #283449;
-  border-radius: 999px;
-  background: #121a27;
-  color: #8d9bb0;
-  font-size: 0.63rem;
-  font-weight: 600;
+  padding: 6px 8px;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .gemelo-panel__status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #67748a;
+  width: 5px;
+  height: 5px;
+  background: var(--line);
 }
 
 .gemelo-panel__status.is-on {
-  border-color: rgba(85, 214, 152, 0.28);
-  color: #93e6bd;
+  border-color: var(--accent);
+  color: var(--ink);
 }
 
 .gemelo-panel__status.is-on .gemelo-panel__status-dot {
-  background: #5be0a0;
-  box-shadow: 0 0 8px rgba(91, 224, 160, 0.7);
+  background: var(--accent);
 }
 
 .gemelo-panel__status.is-warn {
-  border-color: rgba(224, 176, 94, 0.3);
-  color: #e0bf84;
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
 .gemelo-panel__status.is-warn .gemelo-panel__status-dot {
-  background: #e0b05e;
+  background: transparent;
+  border: var(--rule) solid var(--accent);
 }
 
 .gemelo-panel__body {
   flex: 1;
-  padding: 18px 20px 24px;
+  padding: 18px 24px 24px;
   overflow-y: auto;
-  scrollbar-color: #2a3a52 transparent;
-  scrollbar-width: thin;
-}
-
-.gemelo-panel__body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.gemelo-panel__body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.gemelo-panel__body::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: #2a3a52;
 }
 
 .gemelo-panel code {
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  font-family: var(--font-mono);
 }
 
-/* Ficha del mando */
+/* ── Ficha del mando ─────────────────────────────────────────────────────── */
+
 .gemelo-panel__pad {
-  padding: 14px;
-  border: 1px solid #223048;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #111a28, #0f1723);
+  padding: 14px 0;
+  border-top: var(--rule) solid var(--ink);
+  border-bottom: var(--rule) solid var(--line);
 }
 
 .gemelo-panel__pad-name {
-  margin: 0;
-  color: #dde7f7;
-  font-size: 0.8rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 500;
   line-height: 1.45;
   overflow-wrap: anywhere;
 }
@@ -302,70 +312,78 @@
 
 .gemelo-chip {
   padding: 4px 7px;
-  border: 1px solid #263349;
-  border-radius: 999px;
-  background: #141d2c;
-  color: #8d9cb2;
-  font-size: 0.6rem;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
 .gemelo-chip--ok {
-  border-color: rgba(91, 224, 160, 0.25);
-  background: rgba(91, 224, 160, 0.08);
-  color: #8fe0b8;
+  border-color: var(--accent);
+  color: var(--ink);
 }
 
 .gemelo-chip--warn {
-  border-color: rgba(233, 184, 90, 0.28);
-  background: rgba(233, 184, 90, 0.08);
-  color: #e0bf84;
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
 .gemelo-panel__warning {
-  padding: 8px 10px;
-  margin: 10px 0 0;
-  border-left: 2px solid #c9a15e;
-  border-radius: 0 6px 6px 0;
-  background: rgba(201, 161, 94, 0.08);
-  color: #b9a17c;
+  padding: 8px 0 8px 10px;
+  margin-top: 12px;
+  border-left: 2px solid var(--accent);
+  color: var(--ink);
   font-size: 0.66rem;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .gemelo-panel__warning code {
-  color: #e6c892;
+  color: var(--accent);
 }
 
 .gemelo-panel__selector {
   display: block;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .gemelo-panel__selector > span {
   display: block;
   margin-bottom: 5px;
-  color: #74849b;
-  font-size: 0.6rem;
-  font-weight: 600;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 500;
   letter-spacing: 0.1em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .gemelo-panel__selector select {
   width: 100%;
-  padding: 7px 8px;
-  border: 1px solid #2a3a52;
-  border-radius: 7px;
-  background: #131c2a;
-  color: #cdd9ea;
-  font: inherit;
-  font-size: 0.7rem;
+  padding: 7px 0;
+  border: 0;
+  border-bottom: var(--rule) solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.66rem;
 }
 
-/* Listas de botones y ejes */
+.gemelo-panel__selector select:focus {
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+
+/* ── Listas de botones y ejes ────────────────────────────────────────────── */
+
 .gemelo-debug {
-  margin-top: 22px;
+  margin-top: 24px;
 }
 
 .gemelo-debug__head {
@@ -373,27 +391,31 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 8px;
+  padding-bottom: 7px;
+  margin-bottom: 2px;
+  border-bottom: var(--rule) solid var(--ink);
 }
 
 .gemelo-debug__title {
-  margin: 0;
-  color: #96a5ba;
-  font-size: 0.68rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
   font-weight: 600;
   letter-spacing: 0.14em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .gemelo-debug__hint {
-  color: #5b6a80;
-  font-size: 0.6rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.52rem;
+  letter-spacing: 0.03em;
 }
 
 .gemelo-debug__list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 .gemelo-fila {
@@ -401,80 +423,68 @@
   grid-template-columns: 22px minmax(0, 1fr) 46px 14px 14px 32px;
   align-items: center;
   gap: 7px;
-  padding: 5px 7px;
-  border: 1px solid transparent;
-  border-radius: 7px;
-  transition:
-    background-color 0.08s linear,
-    border-color 0.08s linear;
-}
-
-.gemelo-debug__list > .gemelo-fila:nth-child(odd):not(.gemelo-fila--on) {
-  background-color: rgba(255, 255, 255, 0.015);
+  padding: 6px 4px;
+  border-bottom: var(--rule) solid var(--line);
+  transition: background-color 80ms linear;
 }
 
 .gemelo-fila--on {
-  border-color: rgba(125, 165, 255, 0.36);
-  background-color: rgba(125, 165, 255, 0.14);
+  background: var(--ink-04);
 }
 
 .gemelo-fila__index,
 .gemelo-eje__index {
-  color: #526178;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.63rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
   text-align: right;
 }
 
 .gemelo-fila--on .gemelo-fila__index {
-  color: #9bc2ff;
+  color: var(--accent);
 }
 
 .gemelo-fila__name {
   overflow: hidden;
-  color: #a1aec0;
-  font-size: 0.72rem;
+  color: var(--ink);
+  font-size: 0.7rem;
+  line-height: 1.3;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.gemelo-fila--on .gemelo-fila__name {
-  color: #eef4ff;
 }
 
 .gemelo-fila__tag {
   padding: 1px 4px;
   margin-left: 5px;
-  border: 1px solid #2a3648;
-  border-radius: 4px;
-  color: #67768b;
-  font-size: 0.5rem;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.46rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .gemelo-fila__bar {
   position: relative;
-  height: 4px;
+  height: 2px;
   overflow: hidden;
-  border-radius: 999px;
-  background: #1b2535;
+  background: var(--line);
 }
 
 .gemelo-fila__bar > span {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  background: #4f6d9c;
+  background: var(--muted);
   transform-origin: left center;
-  transition: transform 0.05s linear;
+  transition: transform 50ms linear;
 }
 
 .gemelo-fila--on .gemelo-fila__bar > span {
-  background: #8fb9ff;
-  box-shadow: 0 0 8px rgba(125, 165, 255, 0.8);
+  background: var(--accent);
 }
 
 .gemelo-fila__flag {
@@ -483,30 +493,32 @@
   justify-content: center;
   width: 14px;
   height: 14px;
-  border: 1px solid #263246;
-  border-radius: 4px;
-  color: #455369;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.5rem;
-  font-weight: 700;
+  border: var(--rule) solid var(--line);
+  border-radius: 0;
+  color: var(--line);
+  font-family: var(--font-display);
+  font-size: 0.46rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .gemelo-fila__flag.is-on {
-  border-color: rgba(125, 165, 255, 0.6);
-  background: rgba(125, 165, 255, 0.2);
-  color: #d6e7ff;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .gemelo-fila__value,
 .gemelo-eje__value {
-  color: #5d6d84;
-  font-size: 0.63rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
   text-align: right;
 }
 
 .gemelo-fila--on .gemelo-fila__value {
-  color: #b5d2ff;
+  color: var(--ink);
 }
 
 .gemelo-eje {
@@ -514,42 +526,32 @@
   grid-template-columns: 22px minmax(0, 1fr) 78px 46px;
   align-items: center;
   gap: 8px;
-  padding: 5px 7px;
-  border: 1px solid transparent;
-  border-radius: 7px;
-}
-
-.gemelo-eje.is-on {
-  border-color: rgba(126, 231, 255, 0.25);
-  background: rgba(126, 231, 255, 0.07);
+  padding: 7px 4px;
+  border-bottom: var(--rule) solid var(--line);
 }
 
 .gemelo-eje__name {
   overflow: hidden;
-  color: #a1aec0;
-  font-size: 0.72rem;
+  color: var(--ink);
+  font-size: 0.7rem;
+  line-height: 1.3;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.gemelo-eje.is-on .gemelo-eje__name {
-  color: #dff8ff;
-}
-
 .gemelo-eje__track {
   position: relative;
-  height: 4px;
-  border-radius: 999px;
-  background: #1b2535;
+  height: 2px;
+  background: var(--line);
 }
 
 .gemelo-eje__center {
   position: absolute;
-  top: -2px;
-  bottom: -2px;
+  top: -3px;
+  bottom: -3px;
   left: 50%;
   width: 1px;
-  background: #33435b;
+  background: var(--ink-16);
 }
 
 .gemelo-eje__dot {
@@ -558,29 +560,28 @@
   width: 7px;
   height: 7px;
   margin-left: -3.5px;
-  border-radius: 50%;
-  background: #5b7497;
+  background: var(--muted);
   transform: translateY(-50%);
   transition:
-    left 0.05s linear,
-    background-color 0.1s linear;
+    left 50ms linear,
+    background-color 100ms linear;
 }
 
 .gemelo-eje.is-on .gemelo-eje__dot {
-  background: #8fe8ff;
-  box-shadow: 0 0 8px rgba(126, 231, 255, 0.9);
+  background: var(--accent);
 }
 
 .gemelo-eje.is-on .gemelo-eje__value {
-  color: #b6ecff;
+  color: var(--ink);
 }
 
-/* Estados vacíos del panel */
+/* ── Estados vacíos del panel ────────────────────────────────────────────── */
+
 .gemelo-panel__empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 36px 12px 24px;
+  padding: 32px 8px 20px;
   text-align: center;
 }
 
@@ -588,133 +589,140 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 58px;
-  height: 58px;
+  width: 56px;
+  height: 56px;
   margin-bottom: 16px;
-  border: 1px solid rgba(125, 165, 255, 0.22);
-  border-radius: 50%;
-  background: rgba(125, 165, 255, 0.08);
-  color: #8fb3ef;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  color: var(--accent);
 }
 
 .gemelo-panel__empty-title {
-  margin: 0;
-  color: #e6edf8;
-  font-size: 0.92rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
   font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
 }
 
 .gemelo-panel__empty p {
-  margin: 10px 0 0;
-  color: #8492a6;
-  font-size: 0.74rem;
-  line-height: 1.55;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.6;
 }
 
 .gemelo-panel__tips {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 0;
-  margin: 16px 0 0;
+  margin-top: 18px;
   text-align: left;
-  list-style: none;
 }
 
 .gemelo-panel__tips li {
   position: relative;
   padding-left: 16px;
-  color: #71809a;
-  font-size: 0.68rem;
-  line-height: 1.5;
+  color: var(--muted);
+  font-size: 0.66rem;
+  line-height: 1.55;
 }
 
 .gemelo-panel__tips li::before {
   position: absolute;
-  top: 0.5em;
+  top: 0.55em;
   left: 2px;
   width: 4px;
   height: 4px;
-  border-radius: 50%;
-  background: #4f6d9c;
+  background: var(--accent);
   content: '';
 }
 
 .gemelo-panel__footnote {
   padding-top: 16px;
-  margin: 24px 0 0;
-  border-top: 1px solid #1c2534;
-  color: #5f6e84;
-  font-size: 0.62rem;
-  line-height: 1.55;
+  margin-top: 24px;
+  border-top: var(--rule) solid var(--line);
+  color: var(--muted);
+  font-size: 0.6rem;
+  line-height: 1.6;
 }
 
 .gemelo-panel__footnote code {
-  color: #8298b4;
+  color: var(--ink);
   overflow-wrap: anywhere;
 }
 
-/* ── WebHID ──────────────────────────────────────────────────────────────── */
+/* ==========================================================================
+   WebHID
+   ========================================================================== */
 
 .gemelo-fuente {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  padding: 4px;
-  margin-bottom: 18px;
-  border: 1px solid #223048;
-  border-radius: 10px;
-  background: #0b111b;
+  gap: 0;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
 }
 
 .gemelo-fuente__tab {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1px;
-  padding: 7px 9px;
-  border: 1px solid transparent;
-  border-radius: 7px;
+  gap: 3px;
+  padding: 9px 10px;
+  border-left: var(--rule) solid var(--line);
+  border-radius: 0;
   background: transparent;
-  color: #8797ad;
-  font: inherit;
-  font-size: 0.72rem;
-  font-weight: 600;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
   text-align: left;
-  cursor: pointer;
+  text-transform: uppercase;
   transition:
-    background-color 0.12s linear,
-    border-color 0.12s linear,
-    color 0.12s linear;
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.gemelo-fuente__tab:first-child {
+  border-left: 0;
 }
 
 .gemelo-fuente__tab:hover {
-  background: rgba(125, 165, 255, 0.06);
-  color: #c5d4e9;
+  background: var(--ink-04);
+  color: var(--ink);
 }
 
 .gemelo-fuente__tab.is-activo {
-  border-color: rgba(125, 165, 255, 0.34);
-  background: rgba(125, 165, 255, 0.12);
-  color: #eaf2ff;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .gemelo-fuente__nota {
-  color: #5f7089;
-  font-size: 0.55rem;
-  font-weight: 500;
+  color: var(--muted);
+  font-size: 0.48rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
 }
 
 .gemelo-fuente__tab.is-activo .gemelo-fuente__nota {
-  color: #9db8dc;
+  color: var(--line);
 }
 
 .gemelo-hid-bloque {
+  padding-top: 16px;
   margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #1f2b3d;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #101825, #0d1520);
+  border-top: var(--rule) solid var(--line);
+}
+
+.gemelo-hid-bloque:first-of-type {
+  border-top: 0;
 }
 
 .gemelo-boton {
@@ -722,72 +730,76 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 6px 9px;
-  border: 1px solid #2a3a52;
-  border-radius: 7px;
-  background: #141e2d;
-  color: #b6c6dc;
-  font: inherit;
-  font-size: 0.65rem;
-  font-weight: 600;
-  line-height: 1.2;
+  padding: 7px 9px;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
   white-space: nowrap;
-  cursor: pointer;
   transition:
-    background-color 0.12s linear,
-    border-color 0.12s linear,
-    color 0.12s linear;
+    border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
 }
 
 .gemelo-boton:hover:not(:disabled) {
-  border-color: #3d5678;
-  background: #182539;
-  color: #e4eefc;
+  border-color: var(--ink);
+  background: var(--ink-04);
 }
 
 .gemelo-boton:disabled {
-  opacity: 0.42;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .gemelo-boton--primario {
-  border-color: rgba(125, 165, 255, 0.42);
-  background: rgba(83, 122, 200, 0.22);
-  color: #dbe9ff;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 
 .gemelo-boton--primario:hover:not(:disabled) {
-  border-color: rgba(125, 165, 255, 0.68);
-  background: rgba(83, 122, 200, 0.34);
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.gemelo-boton--primario:focus-visible {
+  outline-color: var(--accent-ink);
 }
 
 .gemelo-boton--mini {
-  padding: 4px 7px;
-  font-size: 0.6rem;
+  padding: 5px 7px;
+  font-size: 0.5rem;
 }
 
 .gemelo-hid-nota {
-  margin: 8px 0 0;
-  color: #75859c;
-  font-size: 0.62rem;
-  line-height: 1.55;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.6rem;
+  line-height: 1.6;
 }
 
 .gemelo-hid-nota code {
-  color: #9db3d0;
+  color: var(--ink);
   overflow-wrap: anywhere;
 }
 
 .gemelo-hid-aviso {
   position: relative;
-  padding: 8px 28px 8px 10px;
-  margin-top: 9px;
-  border-left: 2px solid #5d7aa5;
-  border-radius: 0 7px 7px 0;
-  background: rgba(93, 122, 165, 0.1);
-  color: #a9bdd8;
-  font-size: 0.63rem;
-  line-height: 1.5;
+  padding: 8px 26px 8px 10px;
+  margin-top: 10px;
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.55;
 }
 
 .gemelo-hid-aviso p {
@@ -795,37 +807,31 @@
 }
 
 .gemelo-hid-aviso--error {
-  border-left-color: #cf7b6b;
-  background: rgba(207, 123, 107, 0.1);
-  color: #efb8ae;
+  border-left-color: var(--accent);
+  color: var(--ink);
 }
 
 .gemelo-hid-aviso--ok {
-  border-left-color: #5be0a0;
-  background: rgba(91, 224, 160, 0.09);
-  color: #a9e7c8;
+  border-left-color: var(--ink);
+  color: var(--ink);
 }
 
 .gemelo-hid-aviso--info {
-  border-left-color: #c9a15e;
-  background: rgba(201, 161, 94, 0.09);
-  color: #d9c199;
+  border-left-color: var(--muted);
+  color: var(--muted);
 }
 
 .gemelo-hid-aviso__cerrar {
   position: absolute;
   top: 4px;
-  right: 5px;
+  right: 2px;
   width: 20px;
   height: 20px;
   padding: 0;
-  border: 0;
   background: transparent;
   color: inherit;
-  font: inherit;
   font-size: 0.95rem;
   line-height: 1;
-  cursor: pointer;
   opacity: 0.7;
 }
 
@@ -836,10 +842,7 @@
 .gemelo-hid-dispositivos {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 0;
-  margin: 9px 0 0;
-  list-style: none;
+  margin-top: 10px;
 }
 
 .gemelo-hid-dispositivo {
@@ -847,15 +850,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 7px 8px;
-  border: 1px solid #223048;
-  border-radius: 8px;
-  background: #111a27;
+  padding: 8px 4px;
+  border-bottom: var(--rule) solid var(--line);
 }
 
 .gemelo-hid-dispositivo.is-activo {
-  border-color: rgba(91, 224, 160, 0.4);
-  background: rgba(91, 224, 160, 0.07);
+  padding-left: 8px;
+  border-left: 2px solid var(--accent);
+  background: var(--ink-04);
 }
 
 .gemelo-hid-dispositivo__datos {
@@ -863,27 +865,25 @@
 }
 
 .gemelo-hid-dispositivo__nombre {
-  margin: 0;
-  color: #cfdcee;
-  font-size: 0.67rem;
-  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.66rem;
+  font-weight: 500;
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
 .gemelo-hid-dispositivo__meta {
-  margin: 2px 0 0;
-  color: #677991;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.55rem;
+  margin-top: 2px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.52rem;
 }
 
 .gemelo-hid-informe {
-  padding: 9px;
-  margin-top: 9px;
-  border: 1px solid #223048;
-  border-radius: 9px;
-  background: #0c131d;
+  padding: 10px 0;
+  margin-top: 10px;
+  border-top: var(--rule) solid var(--line);
+  border-bottom: var(--rule) solid var(--line);
 }
 
 .gemelo-hid-informe__meta {
@@ -892,14 +892,15 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 5px 10px;
-  margin-bottom: 8px;
-  color: #63758d;
-  font-size: 0.58rem;
+  margin-bottom: 9px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
 }
 
 .gemelo-hid-informe__meta strong {
-  color: #a8c1e2;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  color: var(--ink);
+  font-family: var(--font-display);
 }
 
 .gemelo-hid-bytes {
@@ -914,55 +915,57 @@
   align-items: center;
   min-width: 24px;
   padding: 2px 3px;
-  border: 1px solid #26344a;
-  border-radius: 4px;
-  background: #121c2a;
-  color: #9cafc8;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.62rem;
+  border: var(--rule) solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
   line-height: 1.15;
-  cursor: pointer;
   transition:
-    background-color 0.1s linear,
-    border-color 0.1s linear,
-    color 0.1s linear;
+    border-color 100ms linear,
+    color 100ms linear;
 }
 
 .gemelo-hid-byte:hover {
-  border-color: #3c5578;
+  border-color: var(--ink);
 }
 
 .gemelo-hid-byte.is-cambio {
-  border-color: rgba(233, 184, 90, 0.65);
-  background: rgba(233, 184, 90, 0.18);
-  color: #ffe3ad;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .gemelo-hid-byte.is-sel {
-  outline: 1px solid rgba(125, 165, 255, 0.8);
+  outline: 1px solid var(--ink);
   outline-offset: 1px;
 }
 
 .gemelo-hid-byte__indice {
-  color: #4f6078;
-  font-size: 0.46rem;
+  color: var(--line);
+  font-size: 0.44rem;
 }
 
 .gemelo-hid-byte.is-cambio .gemelo-hid-byte__indice {
-  color: #c9a15e;
+  color: var(--accent);
+}
+
+.gemelo-hid-byte__hex {
+  font-variant-numeric: tabular-nums;
 }
 
 .gemelo-hid-cambio-resumen {
-  margin: 8px 0 0;
-  color: #7f91a9;
-  font-size: 0.58rem;
+  margin-top: 8px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
 }
 
 .gemelo-hid-bits {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: 3px;
-  margin-top: 8px;
+  margin-top: 9px;
 }
 
 .gemelo-hid-bit {
@@ -971,49 +974,48 @@
   align-items: center;
   gap: 1px;
   padding: 3px 0;
-  border: 1px solid #243146;
-  border-radius: 4px;
-  background: #0e1723;
-  color: #53647b;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.48rem;
+  border: var(--rule) solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--line);
+  font-family: var(--font-display);
+  font-size: 0.46rem;
   line-height: 1.2;
 }
 
 .gemelo-hid-bit strong {
-  color: #6e8098;
-  font-size: 0.64rem;
+  color: var(--muted);
+  font-size: 0.6rem;
 }
 
 .gemelo-hid-bit.is-on {
-  border-color: rgba(126, 231, 255, 0.36);
-  background: rgba(126, 231, 255, 0.1);
-  color: #89a9c4;
+  border-color: var(--ink);
+  color: var(--muted);
 }
 
 .gemelo-hid-bit.is-on strong {
-  color: #b9edff;
+  color: var(--ink);
 }
 
 .gemelo-hid-bit.is-cambio {
-  border-color: rgba(233, 184, 90, 0.7);
-  background: rgba(233, 184, 90, 0.18);
+  border-color: var(--accent);
 }
 
 .gemelo-hid-bit.is-cambio strong {
-  color: #ffe3ad;
+  color: var(--accent);
 }
 
 .gemelo-hid-historial {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .gemelo-hid-historial__titulo {
-  margin: 0 0 5px;
-  color: #5f7088;
-  font-size: 0.55rem;
-  font-weight: 600;
-  letter-spacing: 0.09em;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -1022,21 +1024,22 @@
   grid-template-columns: 30px 26px minmax(0, 1fr);
   align-items: baseline;
   gap: 5px;
-  padding: 2px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.025);
+  padding: 3px 0;
+  border-bottom: var(--rule) solid var(--line);
 }
 
 .gemelo-hid-historial__seq,
 .gemelo-hid-historial__id {
-  color: #4d5e74;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.5rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.48rem;
 }
 
 .gemelo-hid-historial__bytes {
   overflow: hidden;
-  color: #74869e;
-  font-size: 0.52rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.5rem;
   letter-spacing: 0.03em;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1047,46 +1050,48 @@
 }
 
 .gemelo-hid-historial__bytes > span.is-cambio {
-  color: #ffd98f;
+  color: var(--accent);
 }
 
 .gemelo-hid-historial__bytes > span.is-cambio::after {
-  color: #c9a15e;
+  color: var(--accent);
   content: '·';
 }
 
 .gemelo-hid-progreso {
-  height: 3px;
+  height: 2px;
   overflow: hidden;
-  margin: 8px 0 10px;
-  border-radius: 999px;
-  background: #1b2637;
+  margin: 10px 0 12px;
+  background: var(--line);
 }
 
 .gemelo-hid-progreso > span {
   display: block;
   height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #4f78c8, #7ee7ff);
-  transition: width 0.2s ease;
+  background: var(--accent);
+  transition: width 0.2s var(--ease);
 }
 
 .gemelo-hid-paso {
-  margin: 10px 0 0;
-  color: #b7c7dc;
-  font-size: 0.75rem;
-  line-height: 1.45;
+  margin-top: 10px;
+  color: var(--ink);
+  font-size: 0.72rem;
+  line-height: 1.5;
 }
 
 .gemelo-hid-paso strong {
-  color: #f0f6ff;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .gemelo-hid-paso__sub {
   display: block;
-  margin-top: 3px;
-  color: #75879e;
-  font-size: 0.61rem;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.6rem;
   font-weight: 400;
 }
 
@@ -1095,13 +1100,14 @@
   align-items: center;
   gap: 7px;
   margin-top: 10px;
-  color: #8b9cb2;
-  font-size: 0.63rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.4;
   cursor: pointer;
 }
 
 .gemelo-hid-opcion input {
-  accent-color: #7da5ff;
+  accent-color: var(--accent);
 }
 
 .gemelo-hid-acciones {
@@ -1114,7 +1120,6 @@
 .gemelo-hid-candidatos {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   margin-top: 8px;
 }
 
@@ -1122,50 +1127,51 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 5px 7px;
-  border: 1px solid #243247;
-  border-radius: 6px;
-  background: #101925;
-  color: #90a2b9;
+  padding: 6px 4px;
+  border-bottom: var(--rule) solid var(--line);
+  color: var(--muted);
   font-size: 0.62rem;
+  line-height: 1.4;
   cursor: pointer;
 }
 
 .gemelo-hid-candidato.is-sel {
-  border-color: rgba(125, 165, 255, 0.55);
-  background: rgba(125, 165, 255, 0.12);
-  color: #dbe8fb;
+  padding-left: 8px;
+  border-left: 2px solid var(--accent);
+  background: var(--ink-04);
+  color: var(--ink);
 }
 
 .gemelo-hid-candidato input {
-  accent-color: #7da5ff;
+  accent-color: var(--accent);
 }
 
 .gemelo-hid-candidato code {
   margin-left: auto;
-  color: #c9a15e;
-  font-size: 0.58rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
 }
 
 .gemelo-hid-editor {
   display: block;
   width: 100%;
   min-height: 150px;
-  padding: 8px;
+  padding: 9px;
   margin-top: 9px;
-  border: 1px solid #243247;
-  border-radius: 8px;
-  background: #0a111a;
-  color: #a9c0dc;
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  border: var(--rule) solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-mono);
   font-size: 0.6rem;
-  line-height: 1.45;
+  line-height: 1.5;
   resize: vertical;
   tab-size: 2;
 }
 
 .gemelo-hid-editor:focus {
-  border-color: rgba(125, 165, 255, 0.55);
+  border-color: var(--accent);
   outline: none;
 }
 
@@ -1173,7 +1179,8 @@
   display: none;
 }
 
-/* En pantallas estrechas el panel pasa a la parte inferior */
+/* ── Adaptación ──────────────────────────────────────────────────────────── */
+
 @media (max-width: 900px) {
   .gemelo {
     flex-direction: column;
@@ -1187,7 +1194,7 @@
   .gemelo-panel {
     width: 100%;
     height: 44%;
-    border-top: 1px solid #1f2a3c;
+    border-top: var(--rule) solid var(--line);
     border-left: 0;
   }
 
@@ -1216,21 +1223,21 @@
 
   .gemelo__empty {
     bottom: 56px;
-    gap: 10px;
-    padding: 12px 14px;
+    gap: 12px;
+    padding: 14px 16px;
   }
 
   .gemelo__empty-icon {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
   }
 
   .gemelo__empty-title {
-    font-size: 0.78rem;
+    font-size: 0.66rem;
   }
 
   .gemelo__empty-text {
-    font-size: 0.68rem;
+    font-size: 0.64rem;
   }
 
   .gemelo__footer {
@@ -1239,7 +1246,7 @@
     left: 16px;
     flex-direction: column;
     gap: 3px;
-    font-size: 0.62rem;
+    font-size: 0.56rem;
   }
 
   .gemelo__credit {
@@ -1258,7 +1265,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gemelo__status.is-on .gemelo__status-dot {
+  .gemelo__status.is-on .gemelo__status-dot,
+  .gemelo-hid-progreso > span {
     animation: none;
+    transition: none;
   }
 }

@@ -39,6 +39,8 @@ export default function VisorInformesHID({
 
   useEffect(() => {
     if (!ultimo) {
+      // El visor se sincroniza con el flujo de informes del dispositivo.
+      // oxlint-disable-next-line react/set-state-in-effect
       setCambioActual(null)
       return
     }

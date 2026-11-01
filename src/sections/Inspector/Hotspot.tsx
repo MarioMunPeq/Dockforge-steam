@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { PALETA } from '../../lib/palette'
 import type { GrupoZona, ZonaMando } from '../../data/zones'
 
 type HotspotProps = {
@@ -156,12 +157,11 @@ export default function Hotspot({
           <sphereGeometry args={[4, 16, 16]} />
           <meshBasicMaterial
             ref={haloMaterial}
-            color={activa ? '#ffffff' : '#7da5ff'}
+            color={PALETA.accent}
             transparent
             opacity={activa ? 0.22 : 0.12}
             depthTest={false}
             depthWrite={false}
-            blending={THREE.AdditiveBlending}
             toneMapped={false}
           />
         </mesh>
@@ -171,7 +171,7 @@ export default function Hotspot({
           <sphereGeometry args={[1.8, 16, 16]} />
           <meshBasicMaterial
             ref={puntoMaterial}
-            color={activa ? '#ffffff' : hover ? '#d7e6ff' : '#9bbcff'}
+            color={activa ? PALETA.text : hover ? PALETA.text : PALETA.accent}
             transparent
             opacity={1}
             depthTest={false}
