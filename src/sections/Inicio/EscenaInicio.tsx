@@ -4,6 +4,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
   type RefObject,
 } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -34,6 +35,19 @@ const VISTAS: Vista[] = [
   { camara: [268, 48, 8], objetivo: [-22, 30, 0] },
   { camara: [-228, 132, 258], objetivo: [24, 36, 0] },
   { camara: [0, 112, 372], objetivo: [-34, 42, 0] },
+]
+
+/**
+ * Encuadre de cada escena: desplazamiento horizontal en porcentaje del ancho y
+ * escala del lienzo. Deja el objeto a un lado y el texto libre al otro, sin
+ * tocar la composición de la cámara ni recortar el encuadre con CSS overflow.
+ */
+const ENCUADRES = [
+  { x: 11, escala: 1 },
+  { x: 18, escala: 1 },
+  { x: 4, escala: 1 },
+  { x: 27, escala: 1 },
+  { x: 33, escala: 1 },
 ]
 
 function limitar(valor: number, minimo = 0, maximo = 1) {
@@ -158,13 +172,16 @@ function RecorteActivo() {
 
 type EscenaProps = {
   progreso: RefObject<number>
+  /** En pantallas estrechas el lienzo ya tiene su propia columna. */
+  compacto: boolean
   /** Portada estática: sin giro ni pulsos cuando el usuario pide menos movimiento. */
   estatico?: boolean
 }
 
-function Escena({ progreso, estatico = false }: EscenaProps) {
+function Escena({ progreso, compacto, estatico = false }: EscenaProps) {
   const { modelo, minY, maxY } = useModeloMando()
   const camara = useThree((estado) => estado.camera)
+  const gl = useThree((estado) => estado.gl)
 
   const grupoMando = useRef<THREE.Group>(null)
   const grupoGiro = useRef<THREE.Group>(null)
@@ -206,13 +223,40 @@ function Escena({ progreso, estatico = false }: EscenaProps) {
     const p = limitar(progreso.current)
     const tiempo = estado.clock.elapsedTime
 
-    // La cámara se posa en cinco planos y se desplaza entre ellos con la
-    // misma curva que el relato de scroll.
-    const fase = limitar(p * 5 - 0.5, 0, 4)
-    const indice = Math.min(VISTAS.length - 2, Math.floor(fase))
-    const mezcla = suavizar(limitar((fase - indice - 0.28) / 0.72))
+    // Cada escena mantiene su plano durante la primera mitad y viaja al
+    // siguiente en la segunda, de modo que la cámara ya está en su sitio
+    // cuando el texto de la escena entra.
+    const fase = limitar(p * 5, 0, 4.999)
+    const indice = Math.min(VISTAS.length - 1, Math.floor(fase))
+    const avance = limitar(fase - indice)
+    const mezcla = estatico ? 0 : suavizar(limitar((avance - 0.45) / 0.5))
     const desde = VISTAS[indice]
-    const hasta = VISTAS[indice + 1]
+    const hasta = VISTAS[Math.min(VISTAS.length - 1, indice + 1)]
+
+    const capa = gl.domElement.closest('.inicio__canvas')
+    if (capa instanceof HTMLElement) {
+      if (compacto) {
+        // La columna la coloca el CSS; no hay desplazamiento por escena.
+        // oxlint-disable-next-line react/immutability
+        capa.style.transform = 'none'
+      } else {
+        const desdeEncuadre = ENCUADRES[indice]
+        const hastaEncuadre = ENCUADRES[Math.min(ENCUADRES.length - 1, indice + 1)]
+        const x = estatico
+          ? ENCUADRES[0].x
+          : THREE.MathUtils.lerp(desdeEncuadre.x, hastaEncuadre.x, mezcla)
+        const escala = estatico
+          ? ENCUADRES[0].escala
+          : THREE.MathUtils.lerp(
+              desdeEncuadre.escala,
+              hastaEncuadre.escala,
+              mezcla,
+            )
+        // El lienzo se desplaza por frame; es un nodo DOM estable fuera de React.
+        // oxlint-disable-next-line react/immutability
+        capa.style.transform = `translateX(${x}%) scale(${escala})`
+      }
+    }
 
     camaraDeseada.current.set(
       THREE.MathUtils.lerp(desde.camara[0], hasta.camara[0], mezcla),
@@ -348,6 +392,22 @@ export default function EscenaInicio({
   progreso,
   estatico = false,
 }: EscenaInicioProps) {
+  const [compacto, setCompacto] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(max-width: 1100px)').matches,
+  )
+
+  useEffect(() => {
+    const consulta = window.matchMedia('(max-width: 1100px)')
+    const alCambiar = (evento: MediaQueryListEvent) => {
+      setCompacto(evento.matches)
+    }
+
+    consulta.addEventListener('change', alCambiar)
+    return () => consulta.removeEventListener('change', alCambiar)
+  }, [])
+
   return (
     <div className="inicio__canvas" aria-hidden="true">
       <Canvas
@@ -362,7 +422,11 @@ export default function EscenaInicio({
       >
         <color attach="background" args={[PALETA.bg]} />
         <Suspense fallback={null}>
-          <Escena progreso={progreso} estatico={estatico} />
+          <Escena
+            progreso={progreso}
+            compacto={compacto}
+            estatico={estatico}
+          />
         </Suspense>
       </Canvas>
     </div>

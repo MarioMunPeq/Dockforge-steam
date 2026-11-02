@@ -137,8 +137,9 @@ separan con reglas horizontales, no con cajas.
 
 ## 08 · Inicio: relato por scroll
 
-Cinco escenas fijas con el mando a pantalla completa. El scroll es la única
-animación orquestada de la aplicación.
+Cinco escenas fijas. El texto ocupa una columna editorial a la izquierda y el
+mando vive en una zona segura a la derecha; la cámara se inclina por escena sin
+invadir la lectura. El scroll es la única animación orquestada de la aplicación.
 
 1. **Objeto.** El mando entero gira despacio sobre carbón. Titular de portada.
 2. **Superficie.** La cámara baja a sticks y trackpads. Texto breve.
@@ -153,6 +154,8 @@ Detalles técnicos:
   alimenta directamente la escena.
 - El progreso se escribe en una ref y Three.js lo lee en `useFrame`; no hay
   renders de React por frame.
+- En ≤1100 px el lienzo pasa a una columna propia a la derecha; en ≤820 px se
+  eleva a un escenario superior y el texto se apila debajo.
 - La malla del mando es una sola pieza. No se separan componentes.
 - `prefers-reduced-motion: reduce` desactiva el scroll animado, Lenis, el
   cursor con inercia y las cortinas; muestra una portada estática.

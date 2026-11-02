@@ -4,7 +4,7 @@
 
 .inicio {
   --inicio-vh: calc(100dvh - var(--nav-height));
-  --inicio-pad-left: calc(var(--page-pad-x) + 128px);
+  --inicio-pad-left: calc(var(--page-pad-x) + 144px);
   position: relative;
   height: 100%;
   overflow-x: hidden;
@@ -29,6 +29,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  will-change: transform;
 }
 
 /* ── HUD y raíl de escenas ───────────────────────────────────────────────── */
@@ -145,22 +146,11 @@
   max-width: 900px;
 }
 
-.inicio__copy--2 .inicio__copy-inner {
-  grid-column: 7 / span 6;
-  justify-self: end;
-}
-
-.inicio__copy--3 .inicio__copy-inner {
-  grid-column: 1 / span 6;
-}
-
-.inicio__copy--4 .inicio__copy-inner {
-  grid-column: 7 / span 6;
-  justify-self: end;
-}
-
+.inicio__copy--2 .inicio__copy-inner,
+.inicio__copy--3 .inicio__copy-inner,
+.inicio__copy--4 .inicio__copy-inner,
 .inicio__copy--5 .inicio__copy-inner {
-  grid-column: 2 / span 7;
+  grid-column: 1 / span 5;
 }
 
 /* ── Tipografía editorial ────────────────────────────────────────────────── */
@@ -377,25 +367,41 @@
     --inicio-pad-left: var(--page-pad-x);
   }
 
+  /* El lienzo ocupa una columna propia a la derecha del texto. */
+  .inicio__canvas {
+    left: 46%;
+  }
+
+  .inicio--estatico .inicio__canvas {
+    left: 0;
+    right: 0;
+  }
+
   .inicio__rail {
     display: none;
   }
 
-  .inicio__copy-inner {
-    grid-column: 1 / span 8;
-  }
-
+  .inicio__copy-inner,
   .inicio__copy--2 .inicio__copy-inner,
-  .inicio__copy--4 .inicio__copy-inner {
-    grid-column: 5 / span 8;
-  }
-
+  .inicio__copy--3 .inicio__copy-inner,
+  .inicio__copy--4 .inicio__copy-inner,
   .inicio__copy--5 .inicio__copy-inner {
-    grid-column: 1 / span 8;
+    grid-column: 1 / span 5;
   }
 }
 
 @media (max-width: 820px) {
+  /* En el móvil el objeto se eleva: escenario arriba, texto abajo. */
+  .inicio__canvas {
+    left: 0;
+    right: 0;
+    bottom: 46%;
+  }
+
+  .inicio--estatico .inicio__canvas {
+    bottom: 38%;
+  }
+
   .inicio__copy {
     align-content: end;
     padding-bottom: clamp(40px, 9vh, 72px);
