@@ -16,9 +16,10 @@ import {
   useGLTF,
 } from '@react-three/drei'
 import * as THREE from 'three'
+import { assetUrl } from '../../lib/assets'
 import { LUCES, PALETA } from '../../lib/palette'
 
-const MANDO_URL = '/models/mando.glb'
+const MANDO_URL = assetUrl('models/mando.glb')
 
 /** Radio del dock de la escena final. */
 const DOCK_ALTO = 22

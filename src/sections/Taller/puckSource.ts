@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { assetUrl } from '../../lib/assets'
 
-const PUCK_URL = '/models/puck.glb'
+const PUCK_URL = assetUrl('models/puck.glb')
 
 export type PuckSource = {
   /** Geometría del puck centrada en X/Z y con su base en y = 0. */

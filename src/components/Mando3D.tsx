@@ -1,9 +1,10 @@
 import { useLayoutEffect, useMemo, type ReactNode } from 'react'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+import { assetUrl } from '../lib/assets'
 import { PALETA } from '../lib/palette'
 
-const MANDO_URL = '/models/mando.glb'
+const MANDO_URL = assetUrl('models/mando.glb')
 
 // Ajustes del material del mando.
 export type MandoMaterial = {

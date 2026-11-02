@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { assetUrl } from '../../lib/assets'
 
-const MANDO_URL = '/models/mando.glb'
+const MANDO_URL = assetUrl('models/mando.glb')
 
 export type MandoSource = {
   /** Geometría fusionada, centrada en el origen y con normales. */

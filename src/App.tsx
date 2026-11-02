@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import { HashRouter, Navigate, Route, Routes } from 'react-router'
 import CargadorApp from './components/CargadorApp'
 import CursorPersonalizado from './components/CursorPersonalizado'
 import NavBar from './components/NavBar'
@@ -18,7 +18,7 @@ function App() {
   const [listo, setListo] = useState(false)
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div
         className={`shell${listo ? ' is-listo' : ''}`}
         inert={!listo}
@@ -39,7 +39,7 @@ function App() {
       <CargadorApp onDone={() => setListo(true)} />
       <CursorPersonalizado />
       <TransicionSeccion />
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
