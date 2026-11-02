@@ -20,7 +20,7 @@ npm run preview
 ```
 
 La previsualización usa la base de producción, así que el proyecto se sirve en
-`http://localhost:4173/dock-forge/` (no en la raíz). Comprueba ahí que cargan el
+`http://localhost:4173/Dockforge-steam/` (no en la raíz). Comprueba ahí que cargan el
 mando, el puck, la tipografía y el favicon antes de desplegar.
 
 ## Rutas
@@ -35,7 +35,7 @@ configuración de servidor: recargar o compartir un enlace no produce un 404.
 
 ## Assets
 
-La aplicación se publica bajo el subdirectorio `/dock-forge/`, definido con
+La aplicación se publica bajo el subdirectorio `/Dockforge-steam/`, definido con
 `base` en `vite.config.ts`. Todas las rutas a archivos de `public/` pasan por
 `assetUrl()` (`src/lib/assets.ts`), que antepone `import.meta.env.BASE_URL`.
 El favicon de `index.html` usa `%BASE_URL%`.
@@ -74,8 +74,10 @@ La holgura se guarda en el estado, pero todavía no modifica la geometría.
 
 ## Despliegue en GitHub Pages
 
-El repositorio debe llamarse `dock-forge` (o ajustar `base` en
-`vite.config.ts`). El flujo `.github/workflows/deploy.yml` se ejecuta en cada
+El repositorio se llama `Dockforge-steam`, así que `base` en `vite.config.ts`
+debe ser exactamente `/Dockforge-steam/` (incluidas las mayúsculas). Si cambias
+el nombre del repositorio, actualiza `base` para que coincida. El flujo
+`.github/workflows/deploy.yml` se ejecuta en cada
 push a `main`: instala con `npm ci`, compila con `npm run build` y publica
 `dist` con las acciones oficiales de Pages.
 
@@ -84,7 +86,7 @@ push a `main`: instala con `npm ci`, compila con `npm run build` y publica
 3. En **Build and deployment → Source**, elige **GitHub Actions**.
 4. Haz push a `main` (o lanza el workflow manualmente desde **Actions**).
 5. Cuando termine, la web estará en
-   `https://<usuario>.github.io/dock-forge/`.
+   `https://<usuario>.github.io/Dockforge-steam/`.
 
 El workflow declara los permisos `pages: write` e `id-token: write`, y agrupa
 los despliegues con `concurrency` para no publicar dos versiones a la vez.
